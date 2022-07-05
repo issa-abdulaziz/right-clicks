@@ -28,11 +28,15 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'is_admin'], function () {
-
+        Route::resource('department', \App\Http\Controllers\admin\DepartmentController::class)->except(['show', 'create', 'edit']);
     });
 
     Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
 
     });
 
+});
+
+Route::fallback(function () {
+    return 'Page not found';
 });

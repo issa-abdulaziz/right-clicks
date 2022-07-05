@@ -13,15 +13,15 @@
       <ul class="navbar-nav mr-auto">
         {{-- <li class="nav-item">
           <a class="nav-link {{ request()->is('task*') ? 'active' : '' }}"
-            href="{{ route('task.index') }}">Task</a>
-        </li>
+            href="{{ route('admin.task.index') }}">Task</a>
+        </li> --}}
         <li class="nav-item">
           <a class="nav-link {{ request()->is('department*') ? 'active' : '' }}"
-            href="{{ route('department.index') }}">Department</a>
+            href="{{ route('admin.department.index') }}">Department</a>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
           <a class="nav-link {{ request()->is('user*') ? 'active' : '' }}"
-            href="{{ route('user.index') }}">User</a>
+            href="{{ route('admin.user.index') }}">User</a>
         </li> --}}
       </ul>
 
