@@ -28,7 +28,9 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'is_admin'], function () {
-        Route::resource('department', \App\Http\Controllers\admin\DepartmentController::class)->except(['show', 'create', 'edit']);
+        Route::resource('department', \App\Http\Controllers\Admin\DepartmentController::class)->except(['show', 'create', 'edit']);
+        Route::put('users/{user}/reset-password', \App\Http\Controllers\Admin\UserManagementController::class.'@resetPassword')->name('user.reset-password');
+        Route::resource('user', \App\Http\Controllers\Admin\UserManagementController::class)->except(['show', 'create', 'edit']);
     });
 
     Route::group(['prefix' => 'user', 'as' => 'user.'], function () {

@@ -19,10 +19,10 @@
           <a class="nav-link {{ request()->is('department*') ? 'active' : '' }}"
             href="{{ route('admin.department.index') }}">Department</a>
         </li>
-        {{-- <li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link {{ request()->is('user*') ? 'active' : '' }}"
             href="{{ route('admin.user.index') }}">User</a>
-        </li> --}}
+        </li>
       </ul>
 
       <!-- Right Side Of Navbar -->
