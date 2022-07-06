@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\TaskRequest;
 use App\Models\Task;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
@@ -17,9 +18,10 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::with('users:id,name')->get();
-        $users = User::where('is_admin', false)->get(['id', 'name']);
-        return view('task.index', compact('tasks', 'users'));
+        $is_admin = auth()->user()->is_admin;
+        $tasks = $is_admin ? Task::with('users:id,name')->get() : auth()->user()->tasks()->with('users:id,name')->get();
+        $users = $is_admin ? User::where('is_admin', false)->get(['id', 'name']) : null;
+        return view('task.index', compact('tasks', 'users', 'is_admin'));
     }
 
     public function store(TaskRequest $request)
@@ -52,5 +54,16 @@ class TaskController extends Controller
     {
         $task->delete();
         return redirect()->route('task.index')->with('success', 'Task Deleted Successfully');
+    }
+
+    public function updateStatus(Request $request, Task $task)
+    {
+        $request->validate([
+            'status' => 'required|in:pended,completed,cancelled,in_progress,canceled',
+        ]);
+        $task->update([
+            'status' => $request->status,
+        ]);
+        return redirect()->route('task.index')->with('success', 'Task Status Updated Successfully');
     }
 }

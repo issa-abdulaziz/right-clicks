@@ -15,7 +15,7 @@
                         <th>Name</th>
                         <th>Email</th>
                         <th>Department</th>
-                        <th class="text-right">Action</th>
+                        <th class="text-right">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
