@@ -11,10 +11,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <!-- Left Side Of Navbar -->
       <ul class="navbar-nav mr-auto">
-        {{-- <li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link {{ request()->is('task*') ? 'active' : '' }}"
             href="{{ route('admin.task.index') }}">Task</a>
-        </li> --}}
+        </li>
         <li class="nav-item">
           <a class="nav-link {{ request()->is('department*') ? 'active' : '' }}"
             href="{{ route('admin.department.index') }}">Department</a>

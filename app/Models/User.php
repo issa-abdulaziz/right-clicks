@@ -50,4 +50,9 @@ class User extends Authenticatable
             'name' => 'Not Set',
         ]);
     }
+
+    public function tasks()
+    {
+        return $this->belongsToMany(Task::class);
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class DepartmentRequest extends FormRequest
 {
@@ -24,7 +25,7 @@ class DepartmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:departments',
+            'name' => ['required', 'string', 'max:255', Rule::unique('departments')->ignore($this->department ?? 0)],
         ];
     }
 }

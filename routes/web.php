@@ -14,23 +14,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth')->group(function () {
-    Route::get('/redirect-after-login', function () {
-        // if (auth()->user()->is_admin)
-        //     return redirect('/admin/task');
-        // return redirect('/user/task');
+    Route::get('redirect-after-login', function () {
         if (auth()->user()->is_admin)
-            return 'admin';
+            return redirect()->route('admin.task.index');
+        // return redirect('/user/task');
         return 'user';
     });
 
-    Route::get('/', function () {
-        return view('welcome');
-    });
+    Route::redirect('/', 'redirect-after-login');
 
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'is_admin'], function () {
         Route::resource('department', \App\Http\Controllers\Admin\DepartmentController::class)->except(['show', 'create', 'edit']);
-        Route::put('users/{user}/reset-password', \App\Http\Controllers\Admin\UserManagementController::class.'@resetPassword')->name('user.reset-password');
+        Route::put('user/{user}/reset-password', \App\Http\Controllers\Admin\UserManagementController::class.'@resetPassword')->name('user.reset-password');
         Route::resource('user', \App\Http\Controllers\Admin\UserManagementController::class)->except(['show', 'create', 'edit']);
+        Route::resource('task', \App\Http\Controllers\Admin\TaskController::class)->except(['show', 'create', 'edit']);
     });
 
     Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
