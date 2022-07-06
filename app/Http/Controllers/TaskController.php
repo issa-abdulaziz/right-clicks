@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TaskRequest;
-use App\Models\Admin\Task;
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -19,7 +19,7 @@ class TaskController extends Controller
     {
         $tasks = Task::with('users:id,name')->get();
         $users = User::where('is_admin', false)->get(['id', 'name']);
-        return view('admin.task.index', compact('tasks', 'users'));
+        return view('task.index', compact('tasks', 'users'));
     }
 
     public function store(TaskRequest $request)
@@ -32,7 +32,7 @@ class TaskController extends Controller
             ]);
             $task->users()->sync($request->users);
         });
-        return redirect()->route('admin.task.index')->with('success', 'Task Added Successfully');
+        return redirect()->route('task.index')->with('success', 'Task Added Successfully');
     }
 
     public function update(TaskRequest $request, Task $task)
@@ -45,12 +45,12 @@ class TaskController extends Controller
             ]);
             $task->users()->sync($request->users);
         });
-        return redirect()->route('admin.task.index')->with('success', 'Task Updated Successfully');
+        return redirect()->route('task.index')->with('success', 'Task Updated Successfully');
     }
 
     public function destroy(Task $task)
     {
         $task->delete();
-        return redirect()->route('admin.task.index')->with('success', 'Task Deleted Successfully');
+        return redirect()->route('task.index')->with('success', 'Task Deleted Successfully');
     }
 }

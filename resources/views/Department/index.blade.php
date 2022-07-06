@@ -27,7 +27,7 @@
                                     data-name="{{ $department->name }}">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <form action="{{ route('admin.department.destroy', $department->id) }}" method="POST" class="d-inline">
+                                <form action="{{ route('department.destroy', $department->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm"
@@ -56,7 +56,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ route('admin.department.store') }}" method="POST">
+                <form action="{{ route('department.store') }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
@@ -112,7 +112,7 @@
                 var id = $(this).data('id');
                 var name = $(this).data('name');
                 $('#edit_department_name').val(name);
-                $('#edit_modal form').attr('action', "{{ route('admin.department.update', ['%id%']) }}"
+                $('#edit_modal form').attr('action', "{{ route('department.update', ['%id%']) }}"
                     .replace('%id%', id));
             });
         })

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserManagementRequest;
-use App\Models\admin\Department;
+use App\Models\Department;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +17,7 @@ class UserManagementController extends Controller
     {
         $users = User::where('is_admin', '0')->with('department')->get();
         $departments = Department::all();
-        return view('admin.user.index', compact('users', 'departments'));
+        return view('user.index', compact('users', 'departments'));
     }
 
     public function store(UserManagementRequest $request)
@@ -28,7 +28,7 @@ class UserManagementController extends Controller
             'password' => Hash::make($request->password),
             'department_id' => $request->department_id,
         ]);
-        return redirect()->route('admin.user.index')->with('success', 'User Added Successfully');
+        return redirect()->route('user.index')->with('success', 'User Added Successfully');
     }
 
     public function update(UserManagementRequest $request, User $user)
@@ -38,13 +38,13 @@ class UserManagementController extends Controller
             'email' => $request->email,
             'department_id' => $request->department_id,
         ]);
-        return redirect()->route('admin.user.index')->with('success', 'User Updated Successfully');
+        return redirect()->route('user.index')->with('success', 'User Updated Successfully');
     }
 
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route('admin.user.index')->with('success', 'User Deleted Successfully');
+        return redirect()->route('user.index')->with('success', 'User Deleted Successfully');
     }
 
     public function resetPassword(Request $request, User $user)
@@ -55,6 +55,6 @@ class UserManagementController extends Controller
         $user->update([
             'password' => Hash::make($request->password),
         ]);
-        return redirect()->route('admin.user.index')->with('success', 'User Password Reset Successfully');
+        return redirect()->route('user.index')->with('success', 'User Password Reset Successfully');
     }
 }

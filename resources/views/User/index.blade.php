@@ -36,7 +36,7 @@
                                     data-department_id="{{ $user->department_id ?? "0" }}">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <form action="{{ route('admin.user.destroy', $user->id) }}" method="POST" class="d-inline">
+                                <form action="{{ route('user.destroy', $user->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm"
@@ -65,7 +65,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ route('admin.user.store') }}" method="POST">
+                <form action="{{ route('user.store') }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
@@ -202,12 +202,12 @@
                 $('#edit_user_name').val(name);
                 $('#edit_user_email').val(email);
                 $('#edit_user_department_id').val(department_id);
-                $('#edit_modal form').attr('action', "{{ route('admin.user.update', ['%id%']) }}"
+                $('#edit_modal form').attr('action', "{{ route('user.update', ['%id%']) }}"
                     .replace('%id%', id));
             });
             $(document).on('click', '.reset_password_btn', function() {
                 var id = $(this).data('id');
-                $('#reset_password_modal form').attr('action', "{{ route('admin.user.reset-password', ['%id%']) }}"
+                $('#reset_password_modal form').attr('action', "{{ route('user.reset-password', ['%id%']) }}"
                     .replace('%id%', id));
             });
         })

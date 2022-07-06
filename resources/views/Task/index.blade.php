@@ -58,7 +58,7 @@
                                     data-users="{{ $task->users }}">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <form action="{{ route('admin.task.destroy', $task->id) }}" method="POST"
+                                <form action="{{ route('task.destroy', $task->id) }}" method="POST"
                                     class="d-inline">
                                     @csrf
                                     @method('DELETE')
@@ -88,7 +88,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ route('admin.task.store') }}" method="POST">
+                <form action="{{ route('task.store') }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
@@ -215,7 +215,7 @@
                     $('#edit_task_users option[value=' + user.id + ']').attr('selected', true);
                 });
                 $('#edit_task_users').trigger('change');
-                $('#edit_modal form').attr('action', "{{ route('admin.task.update', ['%id%']) }}"
+                $('#edit_modal form').attr('action', "{{ route('task.update', ['%id%']) }}"
                     .replace('%id%', id));
             });
         })
