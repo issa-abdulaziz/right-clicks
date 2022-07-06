@@ -20,6 +20,8 @@ Route::middleware('auth')->group(function () {
     Route::group(['prefix' => 'user'], function () {
         Route::get('task', \App\Http\Controllers\TaskController::class . '@index')->name('task.index');
         Route::put('task/{task}', \App\Http\Controllers\TaskController::class . '@updateStatus')->name('task.update-status');
+        Route::view('profile/password', 'profile.password')->name('password.edit');
+        Route::view('profile/edit', 'profile.edit')->name('profile.edit');
     });
 
     Route::group(['prefix' => 'admin', 'middleware' => 'is_admin'], function () {
