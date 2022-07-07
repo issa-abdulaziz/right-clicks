@@ -1,5 +1,6 @@
 @extends('layout.app')
 @push('style')
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
 @section('content')
@@ -235,6 +236,31 @@
         </div>
     @endif
 @endsection
+@push('script')
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.table').DataTable({
+                "columnDefs": [{
+                        "orderable": false,
+                        "targets": [-1]
+                    },
+                    {
+                        "searchable": false,
+                        "targets": [-1]
+                    }
+                ],
+                "lengthMenu": [
+                    [10, 25, -1],
+                    [10, 25, "All"]
+                ],
+                "scrollY": "400px",
+                "scrollCollapse": true,
+                stateSave: true,
+            });
+        });
+    </script>
+@endpush
 
 @push('script')
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>

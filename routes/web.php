@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', 'user/task');
+Route::redirect('/', '/task');
 
 Route::middleware('auth')->group(function () {
 

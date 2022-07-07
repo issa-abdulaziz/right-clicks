@@ -1,4 +1,7 @@
 @extends('layout.app')
+@push('style')
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+@endpush
 @section('content')
     <div class="containter mt-5 rounded bg-white p-3 shadow-sm">
         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -190,6 +193,31 @@
         </div>
     </div>
 @endsection
+@push('script')
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.table').DataTable({
+                "columnDefs": [{
+                        "orderable": false,
+                        "targets": [-1]
+                    },
+                    {
+                        "searchable": false,
+                        "targets": [-1]
+                    }
+                ],
+                "lengthMenu": [
+                    [10, 25, -1],
+                    [10, 25, "All"]
+                ],
+                "scrollY": "400px",
+                "scrollCollapse": true,
+                stateSave: true,
+            });
+        });
+    </script>
+@endpush
 
 @push('script')
     <script>
