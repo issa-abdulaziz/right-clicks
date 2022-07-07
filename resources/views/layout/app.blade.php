@@ -32,7 +32,7 @@
         @unless(request()->is('login*') || request()->is('register*'))
             @include('inc.navbar')
         @endunless
-        <main class="container mx-auto pt-5">
+        <main class="container mx-auto py-5">
             @include('inc.messages')
             @yield('content')
         </main>

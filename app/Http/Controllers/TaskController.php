@@ -19,7 +19,7 @@ class TaskController extends Controller
     public function index()
     {
         $is_admin = auth()->user()->is_admin;
-        $tasks = $is_admin ? Task::with('users:id,name')->get() : auth()->user()->tasks()->with('users:id,name')->get();
+        $tasks = $is_admin ? Task::with('users:id,name')->orderBy('status_updated_at', 'desc')->get() : auth()->user()->tasks()->with('users:id,name')->orderBy('status_updated_at', 'desc')->get();
         $users = $is_admin ? User::where('is_admin', false)->get(['id', 'name']) : null;
         return view('task.index', compact('tasks', 'users', 'is_admin'));
     }
@@ -31,6 +31,7 @@ class TaskController extends Controller
                 'name' => $request->name,
                 'description' => $request->description,
                 'status' => $request->status,
+                'status_updated_at' => now(),
             ]);
             $task->users()->sync($request->users);
         });
@@ -40,6 +41,9 @@ class TaskController extends Controller
     public function update(TaskRequest $request, Task $task)
     {
         DB::transaction(function () use ($request, $task) {
+            if ($task->status != $request->status) {
+                $task->status_updated_at = now();
+            }
             $task->update([
                 'name' => $request->name,
                 'description' => $request->description,
@@ -63,6 +67,7 @@ class TaskController extends Controller
         ]);
         $task->update([
             'status' => $request->status,
+            'status_updated_at' => now(),
         ]);
         return redirect()->route('task.index')->with('success', 'Task Status Updated Successfully');
     }

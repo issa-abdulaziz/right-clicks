@@ -21,6 +21,7 @@
                         <th>Name</th>
                         <th>Description</th>
                         <th>Status</th>
+                        <th>Status Update At</th>
                         <th class="text-right">Actions</th>
                     </tr>
                 </thead>
@@ -50,6 +51,7 @@
                                         data-toggle="modal" data-target="#updateStatus_modal">Canceled</button>
                                 @endif
                             </td>
+                            <td>{{ $task->status_updated_at }}</td>
                             <td class="text-right">
                                 <div class="dropdown d-inline">
                                     <button class="btn btn-info btn-sm dropdown-toggle" type="button"
@@ -90,6 +92,8 @@
             <p>No Tasks Added Yet</p>
         @endif
     </div>
+
+    {{-- Update Status Modal --}}
     <div class="modal fade" id="updateStatus_modal" data-backdrop="static" data-keyboard="false" tabindex="-1"
         aria-labelledby="updateStatus_modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -290,6 +294,7 @@
                 $('#edit_modal form').attr('action', "{{ route('task.update', ['%id%']) }}"
                     .replace('%id%', id));
             });
+            
             $(document).on('click', '.updateStatus_btn', function() {
                 var id = $(this).data('id');
                 var status = $(this).data('status');

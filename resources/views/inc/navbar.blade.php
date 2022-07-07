@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm fixed-top">
     <div class="container">
-        <a class="navbar-brand">
+        <a class="navbar-brand" href="{{ route('dashboard.index') }}">
             {{ env('APP_NAME') }}
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -11,6 +11,12 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
+                @if (auth()->user()->is_admin)
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->is('dashboard*') ? 'active' : '' }}"
+                            href="{{ route('dashboard.index') }}">Dashboard</a>
+                    </li>
+                @endif
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is('task*') ? 'active' : '' }}"
                         href="{{ route('task.index') }}">Task</a>
