@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('content')
-    <div class="container">
+    <div class="container mt-n5">
         <div class="row d-flex justify-content-center align-items-center" style="height: 100vh;">
             <div class="col-sm-10 col-md-8 col-lg-6">
                 <div class="card rounded shadow-sm">

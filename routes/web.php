@@ -17,14 +17,14 @@ Route::redirect('/', 'user/task');
 
 Route::middleware('auth')->group(function () {
 
-    Route::group(['prefix' => 'user'], function () {
-        Route::get('task', \App\Http\Controllers\TaskController::class . '@index')->name('task.index');
-        Route::put('task/{task}', \App\Http\Controllers\TaskController::class . '@updateStatus')->name('task.update-status');
-        Route::view('profile/password', 'profile.password')->name('password.edit');
-        Route::view('profile/edit', 'profile.edit')->name('profile.edit');
+    Route::get('task', \App\Http\Controllers\TaskController::class . '@index')->name('task.index');
+    Route::put('task/{task}', \App\Http\Controllers\TaskController::class . '@updateStatus')->name('task.update-status');
+    Route::group(['prefix' => 'user/profile'], function () {
+        Route::view('password', 'profile.password')->name('password.edit');
+        Route::view('edit', 'profile.edit')->name('profile.edit');
     });
 
-    Route::group(['prefix' => 'admin', 'middleware' => 'is_admin'], function () {
+    Route::group(['middleware' => 'is_admin'], function () {
         Route::resource('department', \App\Http\Controllers\DepartmentController::class)->except(['show', 'create', 'edit']);
         Route::put('user/{user}/reset-password', \App\Http\Controllers\UserManagementController::class.'@resetPassword')->name('user.reset-password');
         Route::resource('user', \App\Http\Controllers\UserManagementController::class)->except(['show', 'create', 'edit']);
