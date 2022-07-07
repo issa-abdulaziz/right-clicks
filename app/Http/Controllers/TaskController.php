@@ -21,7 +21,25 @@ class TaskController extends Controller
         $is_admin = auth()->user()->is_admin;
         $tasks = $is_admin ? Task::with('users:id,name')->orderBy('status_updated_at', 'desc')->get() : auth()->user()->tasks()->with('users:id,name')->orderBy('status_updated_at', 'desc')->get();
         $users = $is_admin ? User::where('is_admin', false)->get(['id', 'name']) : null;
-        return view('task.index', compact('tasks', 'users', 'is_admin'));
+        $status_badge = [
+            'completed' => [
+                'class' => 'badge badge-success',
+                'text' => 'Completed'
+            ],
+            'pended' => [
+                'class' => 'badge badge-warning',
+                'text' => 'Pended'
+            ],
+            'in_progress' => [
+                'class' => 'badge badge-info',
+                'text' => 'In Progress'
+            ],
+            'canceled' => [
+                'class' => 'badge badge-danger',
+                'text' => 'Canceled'
+            ],
+        ];
+        return view('task.index', compact('tasks', 'users', 'is_admin', 'status_badge'));
     }
 
     public function store(TaskRequest $request)

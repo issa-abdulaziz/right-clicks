@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="{{ route('dashboard.index') }}">
+        <a class="navbar-brand" href="{{ auth()->user()->is_admin ? route('dashboard.index') : '' }}">
             {{ env('APP_NAME') }}
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"

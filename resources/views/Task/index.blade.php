@@ -30,31 +30,19 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $task->name }}</td>
-                            <td style="max-width: 220px;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;">
+                            <td style="max-width: 220px;overflow: hidden;text-overflow: ellipsis; white-space: nowrap;"
+                                title="{{ $task->description }}">
                                 {{ $task->description }}</td>
                             <td>
-                                @if ($task->status === 'completed')
-                                    <button class="updateStatus_btn badge badge-success border-0"
-                                        data-id="{{ $task->id }}" data-status="{{ $task->status }}"
-                                        data-toggle="modal" data-target="#updateStatus_modal">Completed</button>
-                                @elseif ($task->status === 'pended')
-                                    <button class="updateStatus_btn badge badge-warning border-0"
-                                        data-id="{{ $task->id }}" data-status="{{ $task->status }}"
-                                        data-toggle="modal" data-target="#updateStatus_modal">Pended</button>
-                                @elseif ($task->status === 'in_progress')
-                                    <button class="updateStatus_btn badge badge-info border-0" data-id="{{ $task->id }}"
-                                        data-status="{{ $task->status }}" data-toggle="modal"
-                                        data-target="#updateStatus_modal">In progress</button>
-                                @elseif ($task->status === 'canceled')
-                                    <button class="updateStatus_btn badge badge-danger border-0"
-                                        data-id="{{ $task->id }}" data-status="{{ $task->status }}"
-                                        data-toggle="modal" data-target="#updateStatus_modal">Canceled</button>
-                                @endif
+                                <button class="updateStatus_btn {{ $status_badge[$task->status]['class'] }} border-0"
+                                    title="Click to update status" data-id="{{ $task->id }}"
+                                    data-status="{{ $task->status }}" data-toggle="modal"
+                                    data-target="#updateStatus_modal">{{ $status_badge[$task->status]['text'] }}</button>
                             </td>
                             <td>{{ $task->status_updated_at }}</td>
                             <td class="text-right">
                                 <div class="dropdown d-inline">
-                                    <button class="btn btn-info btn-sm dropdown-toggle" type="button"
+                                    <button class="btn btn-info btn-sm dropdown-toggle" type="button" title="Teammates"
                                         id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
                                         <i class="fa-solid fa-users"></i>
                                     </button>
@@ -67,7 +55,7 @@
                                     </div>
                                 </div>
                                 @if ($is_admin)
-                                    <button class="edit_btn btn btn-primary btn-sm" data-toggle="modal"
+                                    <button class="edit_btn btn btn-primary btn-sm" title="Edit" data-toggle="modal"
                                         data-target="#edit_modal" data-id="{{ $task->id }}"
                                         data-name="{{ $task->name }}" data-description="{{ $task->description }}"
                                         data-status="{{ $task->status }}" data-users="{{ $task->users }}">
@@ -77,7 +65,7 @@
                                         class="d-inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm"
+                                        <button type="submit" class="btn btn-danger btn-sm" title="Delete"
                                             onclick="return confirm('Are You Sure To Delete!')">
                                             <i class="fas fa-trash"></i>
                                         </button>
@@ -294,7 +282,7 @@
                 $('#edit_modal form').attr('action', "{{ route('task.update', ['%id%']) }}"
                     .replace('%id%', id));
             });
-            
+
             $(document).on('click', '.updateStatus_btn', function() {
                 var id = $(this).data('id');
                 var status = $(this).data('status');

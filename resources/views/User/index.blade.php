@@ -27,22 +27,26 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
-                            <td>{{ $user->department->name }}</td>
+                            <td>
+                                <span class="{{ $user->department->name == 'Not Set' ? 'badge badge-danger' : '' }}">
+                                    {{ $user->department->name }}
+                                </span>
+                            </td>
                             <td class="text-right">
-                                <button class="reset_password_btn btn btn-warning btn-sm" data-toggle="modal"
-                                    data-target="#reset_password_modal" data-id="{{ $user->id }}">
+                                <button class="reset_password_btn btn btn-warning btn-sm" title="Reset Password"
+                                    data-toggle="modal" data-target="#reset_password_modal" data-id="{{ $user->id }}">
                                     <i class="fa fa-key" aria-hidden="true"></i>
                                 </button>
-                                <button class="edit_btn btn btn-primary btn-sm" data-toggle="modal"
-                                    data-target="#edit_modal" data-id="{{ $user->id }}"
-                                    data-name="{{ $user->name }}" data-email="{{ $user->email }}"
-                                    data-department_id="{{ $user->department_id ?? "0" }}">
+                                <button class="edit_btn btn btn-primary btn-sm" data-toggle="modal" title="Edit"
+                                    data-target="#edit_modal" data-id="{{ $user->id }}" data-name="{{ $user->name }}"
+                                    data-email="{{ $user->email }}"
+                                    data-department_id="{{ $user->department_id ?? '0' }}">
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 <form action="{{ route('user.destroy', $user->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm"
+                                    <button type="submit" class="btn btn-danger btn-sm" title="Delete"
                                         onclick="return confirm('Are You Sure To Delete!')">
                                         <i class="fas fa-trash"></i>
                                     </button>
@@ -73,8 +77,8 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="add_user_name">Name</label>
-                            <input type="text" class="form-control" id="add_user_name" name="name"
-                                placeholder="Name" required>
+                            <input type="text" class="form-control" id="add_user_name" name="name" placeholder="Name"
+                                required>
                         </div>
                         <div class="form-group">
                             <label for="add_user_email">Email</label>
@@ -88,8 +92,8 @@
                         </div>
                         <div class="form-group">
                             <label for="add_user_password_confirmation">Password</label>
-                            <input type="password" class="form-control" id="add_user_password_confirmation" name="password_confirmation"
-                                placeholder="Password" required>
+                            <input type="password" class="form-control" id="add_user_password_confirmation"
+                                name="password_confirmation" placeholder="Password" required>
                         </div>
                         <div class="form-group">
                             <label for="add_user_department_id">Department</label>
@@ -180,8 +184,8 @@
                         </div>
                         <div class="form-group">
                             <label for="reset_user_password_confirmation">Confirm Password</label>
-                            <input type="password" class="form-control" id="reset_user_password_confirmation" name="password_confirmation"
-                                placeholder="Password" required>
+                            <input type="password" class="form-control" id="reset_user_password_confirmation"
+                                name="password_confirmation" placeholder="Password" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -235,7 +239,8 @@
             });
             $(document).on('click', '.reset_password_btn', function() {
                 var id = $(this).data('id');
-                $('#reset_password_modal form').attr('action', "{{ route('user.reset-password', ['%id%']) }}"
+                $('#reset_password_modal form').attr('action',
+                    "{{ route('user.reset-password', ['%id%']) }}"
                     .replace('%id%', id));
             });
         })

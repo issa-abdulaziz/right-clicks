@@ -25,7 +25,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $department->name }}</td>
                             <td class="text-right">
-                                <button class="edit_btn btn btn-primary btn-sm" data-toggle="modal"
+                                <button class="edit_btn btn btn-primary btn-sm" data-toggle="modal" title="Edit"
                                     data-target="#edit_modal" data-id="{{ $department->id }}"
                                     data-name="{{ $department->name }}">
                                     <i class="fas fa-edit"></i>
@@ -34,7 +34,7 @@
                                     class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm"
+                                    <button type="submit" class="btn btn-danger btn-sm"  title="Delete"
                                         onclick="return confirm('Are You Sure To Delete!')">
                                         <i class="fas fa-trash"></i>
                                     </button>

@@ -1,7 +1,4 @@
 @extends('layout.app')
-@push('style')
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
-@endpush
 @section('content')
     <div class="containter mt-5 rounded bg-white p-3 shadow-sm">
         <div class="d-flex justify-content-between align-items-center mb-3">
