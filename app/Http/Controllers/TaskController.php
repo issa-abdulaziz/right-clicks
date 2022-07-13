@@ -81,7 +81,7 @@ class TaskController extends Controller
     public function updateStatus(Request $request, Task $task)
     {
         $request->validate([
-            'status' => 'required|in:pended,completed,cancelled,in_progress,canceled',
+            'status' => 'required|in:pended,completed,in_progress,canceled',
         ]);
         $task->update([
             'status' => $request->status,

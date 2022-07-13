@@ -27,7 +27,7 @@ class TaskRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255', Rule::unique('tasks')->ignore($this->task ?? 0)],
             'description' => 'required|string|max:255',
-            'status' => 'required|in:pended,completed,cancelled,in_progress,canceled',
+            'status' => 'required|in:pended,completed,in_progress,canceled',
             'users' => 'required|array',
             'users.*' => 'required|exists:users,id',
         ];
