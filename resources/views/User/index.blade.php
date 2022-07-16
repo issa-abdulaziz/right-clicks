@@ -1,66 +1,90 @@
 @extends('layout.app')
-@push('style')
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
-@endpush
 @section('content')
-    <div class="containter mt-5 rounded bg-white p-3 shadow-sm">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h3>Users</h3>
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add_modal">
-                Add new user
-            </button>
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Users</h1>
+                </div>
+                <div class="col-sm-6">
+                    <button type="button" class="btn btn-success d-block ml-auto" data-toggle="modal" data-target="#add_modal">
+                        Add new user
+                    </button>
+                </div>
+            </div>
         </div>
-        @if (count($users) > 0)
-            <table class="table-striped table-hover table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Department</th>
-                        <th class="text-right">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($users as $user)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->email }}</td>
-                            <td>
-                                <span class="{{ $user->department->name == 'Not Set' ? 'badge badge-danger' : '' }}">
-                                    {{ $user->department->name }}
-                                </span>
-                            </td>
-                            <td class="text-right">
-                                <button class="reset_password_btn btn btn-warning btn-sm" title="Reset Password"
-                                    data-toggle="modal" data-target="#reset_password_modal" data-id="{{ $user->id }}">
-                                    <i class="fa fa-key" aria-hidden="true"></i>
-                                </button>
-                                <button class="edit_btn btn btn-primary btn-sm" data-toggle="modal" title="Edit"
-                                    data-target="#edit_modal" data-id="{{ $user->id }}" data-name="{{ $user->name }}"
-                                    data-email="{{ $user->email }}"
-                                    data-department_id="{{ $user->department_id ?? '0' }}">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <form action="{{ route('user.destroy', $user->id) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" title="Delete"
-                                        onclick="return confirm('Are You Sure To Delete!')">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        @else
-            <p>No Users Added Yet</p>
-        @endif
     </div>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
 
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            @if (count($users) > 0)
+                                <table class="datatable table table-striped table-hover nowrap" width="100%">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Department</th>
+                                            <th class="text-right">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($users as $user)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $user->name }}</td>
+                                                <td>{{ $user->email }}</td>
+                                                <td>
+                                                    <span
+                                                        class="{{ $user->department->name == 'Not Set' ? 'badge badge-danger' : '' }}">
+                                                        {{ $user->department->name }}
+                                                    </span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <button class="reset_password_btn btn btn-warning btn-sm"
+                                                        title="Reset Password" data-toggle="modal"
+                                                        data-target="#reset_password_modal" data-id="{{ $user->id }}">
+                                                        <i class="fa fa-key" aria-hidden="true"></i>
+                                                    </button>
+                                                    <button class="edit_btn btn btn-primary btn-sm" data-toggle="modal"
+                                                        title="Edit" data-target="#edit_modal"
+                                                        data-id="{{ $user->id }}" data-name="{{ $user->name }}"
+                                                        data-email="{{ $user->email }}"
+                                                        data-department_id="{{ $user->department_id ?? '0' }}">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <form action="{{ route('user.destroy', $user->id) }}" method="POST"
+                                                        class="d-inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm" title="Delete"
+                                                            onclick="return confirm('Are You Sure To Delete!')">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @else
+                                <p>No Users Added Yet</p>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+
+    <!-- Modals -->
     <!-- Add Modal -->
     <div class="modal fade" id="add_modal" data-backdrop="static" data-keyboard="false" tabindex="-1"
         aria-labelledby="add_modalLabel" aria-hidden="true">
@@ -97,12 +121,11 @@
                         </div>
                         <div class="form-group">
                             <label for="add_user_department_id">Department</label>
-                            <select class="form-control" id="add_user_department_id" name="department_id" required>
+                            <select class="form-control" id="add_user_department_id" style="width: 100%" name="department_id" required>
                                 <option value="0">Select Department</option>
                                 @forelse ($departments as $department)
                                     <option value="{{ $department->id }}">{{ $department->name }}</option>
                                 @empty
-                                    <option value="-1">No Departments Added</option>
                                 @endforelse
                             </select>
                         </div>
@@ -148,7 +171,6 @@
                                 @forelse ($departments as $department)
                                     <option value="{{ $department->id }}">{{ $department->name }}</option>
                                 @empty
-                                    <option value="-1">No Departments Added</option>
                                 @endforelse
                             </select>
                         </div>
@@ -197,35 +219,19 @@
         </div>
     </div>
 @endsection
-@push('script')
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('.table').DataTable({
-                "columnDefs": [{
-                        "orderable": false,
-                        "targets": [-1]
-                    },
-                    {
-                        "searchable": false,
-                        "targets": [-1]
-                    }
-                ],
-                "lengthMenu": [
-                    [10, 25, -1],
-                    [10, 25, "All"]
-                ],
-                "scrollY": "400px",
-                "scrollCollapse": true,
-                stateSave: true,
-            });
-        });
-    </script>
-@endpush
 
 @push('script')
     <script>
         $(document).ready(function() {
+            $('#add_user_department_id').select2({
+                placeholder: "Select an option",
+                dropdownParent: $('#add_modal')
+            });
+            $('#edit_user_department_id').select2({
+                placeholder: "Select an option",
+                dropdownParent: $('#edit_modal')
+            });
+
             $(document).on('click', '.edit_btn', function() {
                 var id = $(this).data('id');
                 var name = $(this).data('name');

@@ -19,7 +19,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('task', \App\Http\Controllers\TaskController::class . '@index')->name('task.index');
     Route::put('task/{task}/update-status', \App\Http\Controllers\TaskController::class . '@updateStatus')->name('task.update-status');
-    Route::group(['prefix' => 'user/profile'], function () {
+    Route::group(['prefix' => 'profile'], function () {
         Route::view('password', 'profile.password')->name('password.edit');
         Route::view('edit', 'profile.edit')->name('profile.edit');
     });
