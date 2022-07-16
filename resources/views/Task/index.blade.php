@@ -55,7 +55,7 @@
                                                 </td>
                                                 <td>{{ $task->status_updated_at }}</td>
                                                 <td class="text-right">
-                                                    <div class="dropdown d-inline">
+                                                    <div class="btn-group dropleft d-inline">
                                                         <button class="btn btn-info btn-sm dropdown-toggle" type="button"
                                                             title="{{ $is_admin ? 'Assigned To' : 'Teammates' }}"
                                                             id="dropdownMenuButton" data-toggle="dropdown"
