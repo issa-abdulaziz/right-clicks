@@ -281,12 +281,23 @@
                     "targets": [-1],
                     "orderable": false,
                     "responsivePriority": 1,
-                    "searchable": false,
                 }, ],
                 "lengthMenu": [
                     [10, 25, -1],
                     [10, 25, "All"]
                 ],
+            });
+            table.columns().every(function(colID) {
+                let header = $(table.column(colID).header());
+                let placeholderDataAttr = header.data('footer-filter-placeholder');
+                let placeholder = placeholderDataAttr ? placeholderDataAttr : 'Search For ' + header.text();
+                if (header.data('hide-footer-filter'))
+                    return;
+                var mySelectList = $("<input class='form-control' placeholder='" + placeholder + "' />")
+                    .appendTo(table.column(colID).footer())
+                    .on("keyup", function() {
+                        table.column(colID).search($(this).val()).draw();
+                    });
             });
         });
     </script>

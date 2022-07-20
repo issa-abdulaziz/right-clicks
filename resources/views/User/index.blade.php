@@ -27,11 +27,11 @@
                                 <table class="datatable table table-striped table-hover nowrap" width="100%">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th>#</th>
+                                            <th data-hide-filter="true">#</th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Department</th>
-                                            <th class="text-right">Actions</th>
+                                            <th data-hide-filter="true" class="text-right">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -72,6 +72,15 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             @else
                                 <p>No Users Added Yet</p>

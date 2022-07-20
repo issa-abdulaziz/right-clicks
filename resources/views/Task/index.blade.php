@@ -30,12 +30,12 @@
                                 <table class="datatable table table-striped table-hover nowrap" width="100%">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th>#</th>
+                                            <th data-hide-footer-filter="true">#</th>
                                             <th>Name</th>
                                             <th>Description</th>
                                             <th>Status</th>
                                             <th>Status Update At</th>
-                                            <th class="text-right">Actions</th>
+                                            <th data-footer-filter-placeholder="Search For Users"class="text-right">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -95,6 +95,16 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             @else
                                 <p>No Tasks Added Yet</p>
