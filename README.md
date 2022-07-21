@@ -1,9 +1,9 @@
-#Task Managment System
+# Task Managment System
 
-##Platform used
+## Platform used
     Html, Bootstrap, JQuery, Laravel, MySQL.
-##Description
-    ###As an Admin
+## Description
+    => As an Admin
         •	I can create, update, delete, read users data.
         •	I can create, update, delete, read departments data.
         •	I can create, update, delete, read tasks.
@@ -12,7 +12,7 @@
         •	I can filter tasks by: task status, status updated at, user and title.
         •	I can view total number of completed, in-progress, pended, canceled tasks.
         •	I can view a chart of the number of completed tasks by each month.
-    ###As a User
+    => As a User
         •	I can view my tasks.
         •	I can view my teammates in each task.
         •	I can filter my tasks by: task status, status updated at, user and title.
