@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use Illuminate\Support\Facades\DB;
 
-use function PHPSTORM_META\map;
-
 class DashboardController extends Controller
 {
 
@@ -19,8 +17,14 @@ class DashboardController extends Controller
         $canceled_tasks = $tasks->where('status', 'canceled')->first()?->total ?? 0;
 
         // Prepering data to be used in chart
-        $result = Task::where('status','completed')->selectRaw('year(status_updated_at) year, month(status_updated_at) month, count(*) data')
-        ->groupBy('year', 'month')
+        // $result = Task::where('status','completed')->selectRaw('year(status_updated_at) year, month(status_updated_at) month, count(*) data')
+        //     ->groupBy('year', 'month')
+        //     ->orderBy('year', 'asc')
+        //     ->orderBy('month', 'asc')
+        //     ->get();
+
+        $result = Task::where('status','completed')->select(DB::raw('count(id) as data'), DB::raw('YEAR(status_updated_at) year, MONTH(status_updated_at) month'))
+            ->groupby('year', 'month')
             ->orderBy('year', 'asc')
             ->orderBy('month', 'asc')
             ->get();
