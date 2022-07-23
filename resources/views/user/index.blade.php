@@ -27,11 +27,11 @@
                                 <table class="datatable table table-striped table-hover nowrap" width="100%">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th data-hide-filter="true">#</th>
+                                            <th data-hide-footer-filter="true">#</th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Department</th>
-                                            <th data-hide-filter="true" class="text-right">Actions</th>
+                                            <th data-hide-footer-filter="true" class="text-right">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
