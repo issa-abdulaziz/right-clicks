@@ -20,6 +20,10 @@
         •	I can view my total number of completed, in-progress, pended and canceled tasks.
         •	I can update my profile.
         
-## Website URL
+## Website URL: 
     http://task-managment-sys.herokuapp.com
-    But notice that if you want to access as an admin, then please email me at issaabdulaziz20919@gmail.com so I provied you with the credential to check the website as an admin
+    To login as an admin use these credential 
+    Email: admin@gmail.com
+    Password: 12345678
+    Notice that if you found them incorrect, then please email me at issaabdulaziz20919@gmail.com to reset them back.
+
