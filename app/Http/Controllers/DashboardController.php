@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -23,7 +24,7 @@ class DashboardController extends Controller
         //     ->orderBy('month', 'asc')
         //     ->get();
 
-        $result = Task::where('status','completed')->select(DB::raw('count(id) as data'), DB::raw('date_part("year", TIMESTAMP status_updated_at) as year, date_part("month", TIMESTAMP status_updated_at) as month'))
+        $result = Task::where('status','completed')->select(DB::raw('count(id) as data'), DB::raw('EXTRACT(YEAR FROM status_updated_at) AS "year", EXTRACT(MONTH FROM status_updated_at) AS "month"'))
             ->groupby('year', 'month')
             ->orderBy('year', 'asc')
             ->orderBy('month', 'asc')
