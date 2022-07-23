@@ -23,7 +23,7 @@ class DashboardController extends Controller
         //     ->orderBy('month', 'asc')
         //     ->get();
 
-        $result = Task::where('status','completed')->select(DB::raw('count(id) as data'), DB::raw('YEAR(status_updated_at) year, MONTH(status_updated_at) month'))
+        $result = Task::where('status','completed')->select(DB::raw('count(id) as data'), DB::raw('YEAR(status_updated_at) as year, MONTH(status_updated_at) as month'))
             ->groupby('year', 'month')
             ->orderBy('year', 'asc')
             ->orderBy('month', 'asc')
