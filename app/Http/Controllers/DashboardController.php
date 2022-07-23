@@ -17,13 +17,8 @@ class DashboardController extends Controller
         $canceled_tasks = $tasks->where('status', 'canceled')->first()?->total ?? 0;
 
         // Prepering data to be used in chart
-        // $result = Task::where('status','completed')->selectRaw('year(status_updated_at) year, month(status_updated_at) month, count(*) data')
-        //     ->groupBy('year', 'month')
-        //     ->orderBy('year', 'asc')
-        //     ->orderBy('month', 'asc')
-        //     ->get();
-
-        $result = Task::where('status','completed')->select(DB::raw('count(id) as data'), DB::raw('EXTRACT(YEAR FROM status_updated_at) AS "year", EXTRACT(MONTH FROM status_updated_at) AS "month"'))
+        $result = Task::where('status','completed')->where('status_updated_at', '>=', now()->subYear())
+            ->select(DB::raw('count(id) as data, EXTRACT(YEAR FROM status_updated_at) AS "year", EXTRACT(MONTH FROM status_updated_at) AS "month"'))
             ->groupby('year', 'month')
             ->orderBy('year', 'asc')
             ->orderBy('month', 'asc')
