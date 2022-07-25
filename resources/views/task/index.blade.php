@@ -189,8 +189,13 @@
                                 <label for="add_task_users">users</label>
                                 <select class="form-control" id="add_task_users" style="width: 100%" name="users[]"
                                     multiple required>
-                                    @forelse ($users as $user)
-                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    @forelse ($departments as $department)
+                                        <optgroup label="{{ $department->name }}">
+                                            @forelse ($department->users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @empty
+                                            @endforelse
+                                        </optgroup>
                                     @empty
                                     @endforelse
                                 </select>
@@ -244,8 +249,13 @@
                                 <label for="edit_task_users">users</label>
                                 <select class="form-control" id="edit_task_users" style="width: 100%" name="users[]"
                                     multiple required>
-                                    @forelse ($users as $user)
-                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    @forelse ($departments as $department)
+                                        <optgroup label="{{ $department->name }}">
+                                            @forelse ($department->users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @empty
+                                            @endforelse
+                                        </optgroup>
                                     @empty
                                     @endforelse
                                 </select>

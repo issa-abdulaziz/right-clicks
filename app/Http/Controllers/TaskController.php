@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TaskRequest;
+use App\Models\Department;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -20,7 +21,7 @@ class TaskController extends Controller
     {
         $is_admin = auth()->user()->is_admin;
         $tasks = $is_admin ? Task::with('users:id,name')->orderBy('status_updated_at', 'desc')->get() : auth()->user()->tasks()->with('users:id,name')->orderBy('status_updated_at', 'desc')->get();
-        $users = $is_admin ? User::where('is_admin', false)->get(['id', 'name']) : null;
+        $departments = $is_admin ? Department::with('users:id,name,department_id')->get() : null;
         $status_badge = [
             'completed' => [
                 'class' => 'badge badge-success',
@@ -39,7 +40,7 @@ class TaskController extends Controller
                 'text' => 'Canceled'
             ],
         ];
-        return view('task.index', compact('tasks', 'users', 'is_admin', 'status_badge'));
+        return view('task.index', compact('tasks', 'departments', 'is_admin', 'status_badge'));
     }
 
     public function store(TaskRequest $request)
