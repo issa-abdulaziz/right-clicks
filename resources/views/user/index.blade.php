@@ -175,7 +175,7 @@
                         </div>
                         <div class="form-group">
                             <label for="edit_user_department_id">Department</label>
-                            <select class="form-control" id="edit_user_department_id" name="department_id" required>
+                            <select class="form-control" id="edit_user_department_id" name="department_id" style="width: 100%" required>
                                 <option value="0">Select Department</option>
                                 @forelse ($departments as $department)
                                     <option value="{{ $department->id }}">{{ $department->name }}</option>
@@ -248,7 +248,7 @@
                 var department_id = $(this).data('department_id');
                 $('#edit_user_name').val(name);
                 $('#edit_user_email').val(email);
-                $('#edit_user_department_id').val(department_id);
+                $('#edit_user_department_id').val(department_id).change();
                 $('#edit_modal form').attr('action', "{{ route('user.update', ['%id%']) }}"
                     .replace('%id%', id));
             });
